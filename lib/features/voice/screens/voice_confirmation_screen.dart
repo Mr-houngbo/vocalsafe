@@ -356,18 +356,75 @@ class _VoiceConfirmationScreenState extends State<VoiceConfirmationScreen>
       }
     }
     
-    // Détection de l'opérateur améliorée
+    // Détection de l'opérateur améliorée avec plus de variations
     String? operator;
-    if (text.contains('orange') || text.contains('om') || text.contains('omoney') || text.contains('orange money')) {
+    
+    // Orange Money - variations plus larges
+    if (text.contains('orange money') || text.contains('orange-money') || 
+        text.contains('orange monney') || text.contains('orange mony') ||
+        text.contains('orange') || text.contains('om') || 
+        text.contains('omoney') || text.contains('o money') ||
+        text.contains('orange moné') || text.contains('orange monay')) {
       operator = 'orange';
-    } else if (text.contains('wave') || text.contains('wave senegal')) {
+    } 
+    // Wave - variations plus larges
+    else if (text.contains('wave') || text.contains('wave senegal') || 
+             text.contains('wave sénégal') || text.contains('wav') ||
+             text.contains('wawe') || text.contains('waiv')) {
       operator = 'wave';
-    } else if (text.contains('moov') || text.contains('moo') || text.contains('moov money') || text.contains('moovmoney')) {
+    } 
+    // Moov Money - variations plus larges
+    else if (text.contains('moov money') || text.contains('moov-money') || 
+             text.contains('moov monney') || text.contains('moov') ||
+             text.contains('moo') || text.contains('moovmoney') ||
+             text.contains('move money')) {
       operator = 'moov';
-    } else if (text.contains('free') || text.contains('free money') || text.contains('freemoney')) {
+    } 
+    // Free Money - variations plus larges
+    else if (text.contains('free money') || text.contains('free-money') || 
+             text.contains('free monney') || text.contains('free') ||
+             text.contains('freemoney') || text.contains('free monay')) {
       operator = 'free';
-    } else if (text.contains('etisalat') || text.contains('etisalat money')) {
+    } 
+    // Etisalat - variations plus larges
+    else if (text.contains('etisalat money') || text.contains('etisalat-money') || 
+             text.contains('etisalat') || text.contains('etisalat monney')) {
       operator = 'etisalat';
+    }
+    
+    // Patterns regex pour détection plus robuste
+    if (operator == null) {
+      final operatorPatterns = [
+        // Orange patterns
+        RegExp(r'\b(?:orange\s*money|orange|om|o\s*money)\b', caseSensitive: false),
+        // Wave patterns  
+        RegExp(r'\b(?:wave\s*senegal|wave|wav|wawe)\b', caseSensitive: false),
+        // Moov patterns
+        RegExp(r'\b(?:moov\s*money|moov|moo|move\s*money)\b', caseSensitive: false),
+        // Free patterns
+        RegExp(r'\b(?:free\s*money|free)\b', caseSensitive: false),
+        // Etisalat patterns
+        RegExp(r'\b(?:etisalat\s*money|etisalat)\b', caseSensitive: false),
+      ];
+      
+      for (final pattern in operatorPatterns) {
+        final match = pattern.firstMatch(text);
+        if (match != null) {
+          final matchedText = match.group(0)!.toLowerCase();
+          if (matchedText.contains('orange')) {
+            operator = 'orange';
+          } else if (matchedText.contains('wave')) {
+            operator = 'wave';
+          } else if (matchedText.contains('moov')) {
+            operator = 'moov';
+          } else if (matchedText.contains('free')) {
+            operator = 'free';
+          } else if (matchedText.contains('etisalat')) {
+            operator = 'etisalat';
+          }
+          break;
+        }
+      }
     }
     
     // Si aucun opérateur détecté, essayer de deviner selon le contexte
@@ -442,28 +499,37 @@ class _VoiceConfirmationScreenState extends State<VoiceConfirmationScreen>
     return 'low';
   }
   
-  // Deviner l'opérateur selon le contexte
+  // Deviner l'opérateur selon le contexte et les indices
   String? _guessOperatorFromContext(String text) {
-    // Par défaut, au Sénégal, Orange est le plus courant
-    // On peut aussi utiliser des heuristiques basées sur le numéro de téléphone
+    // Indices contextuels pour chaque opérateur
     
-    // Si le montant est petit (<1000), c'est probablement Orange (plus populaire)
-    final amountPatterns = [
-      RegExp(r'(\d+)'),
-      RegExp(r'(\d+)\s*k', caseSensitive: false),
-    ];
-    
-    int? amount;
-    for (final pattern in amountPatterns) {
-      final match = pattern.firstMatch(text);
-      if (match != null) {
-        amount = int.tryParse(match.group(1)!);
-        break;
-      }
+    // Orange - plus courant au Sénégal, mots-clés associés
+    if (text.contains('sénégal') || text.contains('senegal') || 
+        text.contains('dakar') || text.contains('populaire') ||
+        text.contains('orange') || text.contains('om')) {
+      return 'orange';
     }
     
-    // Si aucun opérateur spécifié, utiliser Orange par défaut
-    // (car c'est l'opérateur le plus courant au Sénégal)
+    // Wave - souvent mentionné avec "nouveau" ou "digital"
+    if (text.contains('nouveau') || text.contains('digital') || 
+        text.contains('sans contact') || text.contains('qrcode') ||
+        text.contains('rapide') || text.contains('instant')) {
+      return 'wave';
+    }
+    
+    // Moov - parfois mentionné avec "côte d'ivoire" ou "abidjan"
+    if (text.contains('côte') || text.contains('ivoire') || 
+        text.contains('abidjan') || text.contains('moov')) {
+      return 'moov';
+    }
+    
+    // Free - moins courant, mais si mention de "gratuit" ou "free"
+    if (text.contains('gratuit') || text.contains('free') || 
+        text.contains('libre')) {
+      return 'free';
+    }
+    
+    // Par défaut, retourner Orange car c'est l'opérateur le plus courant au Sénégal
     return 'orange';
   }
   
