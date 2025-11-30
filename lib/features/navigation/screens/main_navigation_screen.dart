@@ -7,7 +7,6 @@ import '../../alerts/screens/alerts_screen.dart';
 import '../../profile/screens/profile_screen.dart';
 import '../../voice/screens/voice_listening_screen.dart';
 import '../../voice/screens/voice_confirmation_screen.dart';
-import '../../transaction/screens/transaction_summary_screen.dart';
 import '../../transaction/screens/transaction_success_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -124,16 +123,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           },
           onNavigateToTransaction: (route, [data]) {
             _navigateToRoute(route, data);
-          },
-        );
-      case '/transaction-summary':
-        return TransactionSummaryScreen(
-          onBack: () {
-            setState(() {
-              _currentRoute = null;
-              _currentTransactionData = null;
-            });
-            context.go('/');
           },
         );
       case '/transaction-success':

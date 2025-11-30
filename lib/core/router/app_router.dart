@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/voice/screens/voice_listening_screen.dart';
 import '../../features/voice/screens/voice_confirmation_screen.dart';
-import '../../features/transaction/screens/transaction_summary_screen.dart';
 import '../../features/transaction/screens/transaction_success_screen.dart';
 import '../../features/history/screens/history_screen.dart';
 import '../../features/alerts/screens/alerts_screen.dart';
@@ -29,10 +28,6 @@ class AppRouter {
             builder: (context, state) => VoiceConfirmationScreen(
               transcribedText: state.extra as String? ?? '',
             ),
-          ),
-          GoRoute(
-            path: 'transaction-summary',
-            builder: (context, state) => const TransactionSummaryScreen(),
           ),
           GoRoute(
             path: 'transaction-success',
