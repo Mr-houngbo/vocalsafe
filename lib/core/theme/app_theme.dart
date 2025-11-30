@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Couleurs principales - Orange et Blanc uniquement
-  static const Color primaryOrange = Color(0xFFFF6B35); // Orange vif pro
-  static const Color lightOrange = Color(0xFFFFA574);   // Orange clair
-  static const Color darkOrange = Color(0xFFE85D2C);   // Orange foncé
+  // Couleurs principales - Vert doux et Blanc uniquement
+  static const Color primaryGreen = Color(0xFF4CAF50); // Vert doux
+  static const Color lightGreen = Color(0xFF81C784);   // Vert clair
+  static const Color darkGreen = Color(0xFF388E3C);   // Vert foncé
   static const Color pureWhite = Color(0xFFFFFFFF);   // Blanc pur
   static const Color offWhite = Color(0xFFF8F9FA);    // Blanc cassé
   static const Color lightGray = Color(0xFFF5F5F5);   // Gris très clair
@@ -14,30 +14,30 @@ class AppTheme {
   static const Color textSecondary = Color(0xFF7F8C8D); // Texte secondaire
   static const Color textLight = Color(0xFFBDC3C7);   // Texte très clair
 
-  // Couleurs legacy pour compatibilité
-  static const Color primaryGreen = primaryOrange; // Alias pour compatibilité
-  static const Color lightGreen = lightOrange;     // Alias pour compatibilité  
+  // Couleurs de compatibilité
+  static const Color primaryOrange = primaryGreen; // Alias pour compatibilité
+  static const Color lightOrange = lightGreen;     // Alias pour compatibilité  
   static const Color backgroundLight = pureWhite;  // Alias pour compatibilité
   static const Color errorRed = Color(0xFFE74C3C); // Rouge pour erreurs
   static const Color errorLight = Color(0xFFFDEDEC); // Rouge clair pour erreurs
 
   // Gradients subtils
-  static const LinearGradient orangeGradient = LinearGradient(
-    colors: [primaryOrange, lightOrange],
+  static const LinearGradient greenGradient = LinearGradient(
+    colors: [primaryGreen, lightGreen],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
   
   // Gradient legacy pour compatibilité
-  static const LinearGradient greenGradient = orangeGradient; // Alias pour compatibilité
+  static const LinearGradient orangeGradient = greenGradient; // Alias pour compatibilité
 
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: Colors.orange,
-    primaryColor: primaryOrange,
+    primarySwatch: Colors.green,
+    primaryColor: primaryGreen,
     scaffoldBackgroundColor: pureWhite,
     colorScheme: const ColorScheme.light(
-      primary: primaryOrange,
-      secondary: lightOrange,
+      primary: primaryGreen,
+      secondary: lightGreen,
       surface: pureWhite,
       background: pureWhite,
       error: Color(0xFFE74C3C),
@@ -102,7 +102,7 @@ class AppTheme {
         color: textPrimary,
       ),
       iconTheme: IconThemeData(
-        color: primaryOrange,
+        color: primaryGreen,
         size: 24,
       ),
     ),
@@ -110,7 +110,7 @@ class AppTheme {
     // Bottom Navigation Bar minimaliste
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: pureWhite,
-      selectedItemColor: primaryOrange,
+      selectedItemColor: primaryGreen,
       unselectedItemColor: textLight,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
@@ -137,7 +137,7 @@ class AppTheme {
     // Elevated buttons minimalistes
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primaryOrange,
+        backgroundColor: primaryGreen,
         foregroundColor: pureWhite,
         elevation: 0,
         shadowColor: Colors.transparent,
@@ -155,8 +155,8 @@ class AppTheme {
     // Outline buttons minimalistes
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: primaryOrange,
-        side: const BorderSide(color: primaryOrange, width: 1),
+        foregroundColor: primaryGreen,
+        side: const BorderSide(color: primaryGreen, width: 1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -182,7 +182,7 @@ class AppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: primaryOrange, width: 2),
+        borderSide: const BorderSide(color: primaryGreen, width: 2),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       hintStyle: const TextStyle(
