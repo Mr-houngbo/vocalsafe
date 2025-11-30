@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
           const SizedBox(width: 12),
           const Text(
-            'VocaSimple',
+            'Vocalsafe',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -143,27 +143,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Instruction visuelle simple
-            Icon(
-              _isListening ? Icons.mic : Icons.touch_app,
-              size: 32,
-              color: _isListening ? AppTheme.primaryOrange : AppTheme.textSecondary,
-            ),
-            const SizedBox(height: 12),
+            // BOUTON VOCAL GÉANT
+            _buildGiantVoiceButton(context),
+            
+            const SizedBox(height: 24),
             
             Text(
               _isListening ? 'Écoute en cours...' : 'Appuyez pour parler',
               style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: _isListening ? AppTheme.primaryOrange : AppTheme.textPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: _isListening ? AppTheme.primaryOrange : AppTheme.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 48),
-            
-            // BOUTON VOCAL GÉANT
-            _buildGiantVoiceButton(context),
             
             const SizedBox(height: 48),
             
@@ -303,27 +296,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget _buildBottomText(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Appuyez et parlez',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppTheme.textSecondary,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'VocaSimple • Transactions vocales',
-            style: TextStyle(
-              fontSize: 12,
-              color: AppTheme.textLight,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
+      child: Text(
+        'Vocalsafe • Transactions vocales',
+        style: TextStyle(
+          fontSize: 12,
+          color: AppTheme.textLight,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
